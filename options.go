@@ -53,6 +53,13 @@ func WithoutDuration() Options {
 	}}
 }
 
+// WithWarnErrSkip log driver.ErrSkip error as warning.
+func WithWarnErrSkip() Options {
+	return option{func(cfg *internal.Logger) {
+		cfg.WarnErrSkip = true
+	}}
+}
+
 func newDefaultLogger(opt ...Options) internal.Logger {
 	logger := internal.Logger{
 		Logger:       slog.Default(),
@@ -60,6 +67,7 @@ func newDefaultLogger(opt ...Options) internal.Logger {
 		StmtPrefix:   "stmt:",
 		TxPrefix:     "tx:",
 		WithDuration: true,
+		WarnErrSkip:  false,
 	}
 
 	for _, o := range opt {
