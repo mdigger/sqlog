@@ -153,7 +153,7 @@ func (c *Conn) Prepare(query string) (_ driver.Stmt, err error) {
 
 	defer func(started time.Time) {
 		c.logger.Log(context.Background(), slog.LevelInfo, "prepare", started, err,
-			logQuery(query), stmtID)
+			stmtID, logQuery(query))
 	}(time.Now())
 
 	stmt, err := c.conn.Prepare(query)
@@ -170,7 +170,7 @@ func (c *Conn) PrepareContext(ctx context.Context, query string) (_ driver.Stmt,
 
 	defer func(started time.Time) {
 		c.logger.Log(ctx, slog.LevelInfo, "prepareContext", started, err,
-			logQuery(query), stmtID)
+			stmtID, logQuery(query))
 	}(time.Now())
 
 	if prepare, ok := c.conn.(driver.ConnPrepareContext); ok {
