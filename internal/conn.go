@@ -298,9 +298,9 @@ func (c *Conn) CheckNamedValue(namedValue *driver.NamedValue) (err error) {
 }
 
 func (c *Conn) Close() (err error) {
-	defer func(started time.Time) {
+	defer func() {
 		c.logger.Log(context.Background(), slog.LevelInfo, "close", c.started, err)
-	}(time.Time{})
+	}()
 
 	return c.conn.Close()
 }
