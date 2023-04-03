@@ -41,7 +41,7 @@ func (l Logger) Log(ctx context.Context, level slog.Level, msg string, started t
 			level = slog.LevelWarn
 		}
 
-		attrs = append(attrs, slog.String("error", err.Error()))
+		attrs = append(attrs, slog.Any("error", err))
 	}
 
 	l.Logger.LogAttrs(ctx, level, l.BasePrefix+msg, attrs...)
